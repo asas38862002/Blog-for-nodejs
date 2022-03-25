@@ -1,0 +1,1 @@
+var upload = multer({dest: "public/images/uploads"})
