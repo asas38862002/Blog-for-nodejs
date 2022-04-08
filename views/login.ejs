@@ -27,7 +27,7 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">登入系統</p>
 
-      <form action="login_account" method="post" onsubmit="return enter()">
+      <form>
         <div class="input-group mb-3">
           <input type="text" class="form-control" name="username" id="username" placeholder="帳號">
           <div class="input-group-append">
@@ -53,12 +53,16 @@
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">登入</button>
+            <button type="button" onclick = "enter()"class="btn btn-primary btn-block">登入</button>
+            <!--button type="button" onclick = "check()" class="btn btn-primary btn-block">Register</button-->
           </div>
           <!-- /.col -->
         </div>
-      </form><!-- confirm acount -->
-
+      <form><!-- confirm acount -->
+      <p id="show info"> </p>
+      <div>
+        <span id="code"></span> 
+      </div>      
       <div class="social-auth-links text-center mb-3">
 
 
@@ -84,6 +88,18 @@
 
 
 <script type="text/javascript"> 
+
+
+  function count()
+  { 
+      obj=document.getElementById('code'); 
+      s=5; 
+      setInterval(function(){ obj.innerHTML=s--+"秒後跳轉到指定頁面"; 
+      if(s==0){ window.location.href='index'; } },1000); 
+          console.log("test");
+  }
+
+
   function enter() 
   { 
   var username=document.getElementById("username").value;//獲取form中的使用者名稱 
@@ -139,7 +155,35 @@
   }
   
 
-  return true; 
+  //return true; 
+  
+  var xhr = new XMLHttpRequest();
+    xhr.open('post','/login_account');
+    xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    //  content=1234&title=hello
+    var data = 'email='+username+"&password="+password;
+    xhr.send(data);
+    xhr.onload = function(){
+        var str ="" ;
+        str = xhr.responseText ;
+        document.getElementById("show info").innerHTML=str ;
+        console.log(xhr.responseText);
+        if(str=="登入成功")
+        {
+          count() ;
+          //alert();
+        }
+        else 
+        {
+          
+        }
+        //alert("str="+str+" "+str.length );
+      
+
+
+    }// xhr.onload 
+  
+  
   } 
 </script>
 

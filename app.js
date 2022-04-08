@@ -231,8 +231,9 @@ app.get('/login',function(req,res){
 app.post('/login_account',function(req,res){
 
     
-    var email = req.body.username ;
+    var email = req.body.email ;
     var pwd = req.body.password ;
+    //console.log("email= ",req.body);
     var connection = mysql.createConnection({
         host     : 'localhost',
         user     : 'Jax',
@@ -280,25 +281,28 @@ app.post('/login_account',function(req,res){
             console.log('the account is match');
             //res.send('the account is match');
             //connection.end();//close mysql
-            res.render('login_sign',{
+            res.send('登入成功');  
+            /*res.render('login_sign',{
                 'show'  : 1,
-            });
+            });*/
         } // if account is match respond the account is exist 
         
         else if(account_flag==2) {
             console.log('the account is not exist');
+            res.send('帳號不存在');
             //connection.end(); //close mysql
-            res.render('login_sign',{
+            /*res.render('login_sign',{
                 'show'  : 2,
-            });
+            });*/
         }// if account is not same server respond success and insert the account to mysql 
         
         else if(account_flag==3) {
             console.log('the pwd is wrong ');
+            res.send('密碼錯誤');
             //connection.end(); //close mysql
-            res.render('login_sign',{
+            /*res.render('login_sign',{
                 'show'  : 3,
-            });
+            });*/
         }// if account is not same server respond success and insert the account to mysql 
     
 
